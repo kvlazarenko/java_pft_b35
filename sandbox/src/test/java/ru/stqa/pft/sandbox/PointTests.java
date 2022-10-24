@@ -15,7 +15,7 @@ public class PointTests {
     Point p2 = new Point(1, 2);
 
 
-    Assert.assertEquals(PointDistance.distance(p1, p2), 6.082762530298219);
+    Assert.assertEquals(p1.distance(p2), 6.082762530298219);
   }
 
   @Test
@@ -36,7 +36,17 @@ public class PointTests {
     Point p1 = new Point(2.0, 8.0);
     Point p2 = new Point(1, 2);
 
-    Assert.assertEquals(PointDistance.distance(p1, p2), Point2D.distance(p1.getX(),p1.getY(),p2.getX(),p2.getY()));
+    Assert.assertEquals(p1.distance(p2), Point2D.distance(p1.getX(),p1.getY(),p2.getX(),p2.getY()));
+
+
+  }
+  @Test
+  public void TestArea4() {
+
+    Point p1 = new Point(2.0, 8.0);
+    Point p2 = new Point(1, 2);
+
+    Assert.assertEquals(Math.sqrt((p2.getY() - p1.getY()) * ((p2.getY() - p1.getY())) + ((p2.getX() - p1.getX()) * (p2.getX() - p1.getX()))), 6.082762530298219 );
 
 
   }
