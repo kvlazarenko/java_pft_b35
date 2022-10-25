@@ -6,7 +6,8 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
@@ -16,7 +17,7 @@ public class ContactCreationTests {
   private WebDriver wd;
 
 
-  @BeforeClass(alwaysRun = true)
+  @BeforeMethod(alwaysRun = true)
   public void setUp() throws Exception {
     System.setProperty("webdriver.chrome.driver", "C:\\Windows\\System32\\Chromedriver.exe");
     wd = new ChromeDriver();
@@ -25,7 +26,7 @@ public class ContactCreationTests {
   }
     @Test
 
-    public void testContactCreationTests() throws Exception {
+    public void testContactCreation() throws Exception {
       initContactCreation();
       fillContactForm(new ContactData("Petr", "Petrov", "+79000000000", "test@tests.com"));
       submitContactCreation();
@@ -70,7 +71,7 @@ public class ContactCreationTests {
     wd.findElement(By.xpath("//input[@value='Login']")).click();
   }
 
-  @AfterClass(alwaysRun = true)
+  @AfterMethod(alwaysRun = true)
     public void tearDown () throws Exception {
       wd.quit();
 
