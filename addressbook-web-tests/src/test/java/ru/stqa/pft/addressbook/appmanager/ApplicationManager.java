@@ -11,9 +11,11 @@ import java.time.Duration;
 public class ApplicationManager {
   WebDriver wd;
 
+  private ContactHelper contactHelper;
   private SessionHelper sessionHelper;
   private NaigationHelper naigationHelper;
   private GroupHelper groupHelper;
+
 
   public void init() {
     System.setProperty("webdriver.chrome.driver", "C:\\Windows\\System32\\Chromedriver.exe");
@@ -22,16 +24,16 @@ public class ApplicationManager {
     groupHelper = new GroupHelper(wd);
     naigationHelper = new NaigationHelper(wd);
     sessionHelper = new SessionHelper(wd);
+    contactHelper = new ContactHelper(wd);
     sessionHelper.login("admin", "secret");
   }
-
 
 
   public void stop() {
     wd.quit();
   }
 
-  private boolean isElementPresent(By by) {
+   public boolean isElementPresent(By by) {
     try {
       groupHelper.wd.findElement(by);
       return true;
@@ -40,7 +42,8 @@ public class ApplicationManager {
     }
   }
 
-  private boolean isAlertPresent() {
+
+  public boolean isAlertPresent() {
     try {
       groupHelper.wd.switchTo().alert();
       return true;
@@ -55,5 +58,10 @@ public class ApplicationManager {
 
   public NaigationHelper getNaigationHelper() {
     return naigationHelper;
+  }
+
+
+  public ContactHelper getContactHelper() {
+    return contactHelper;
   }
 }

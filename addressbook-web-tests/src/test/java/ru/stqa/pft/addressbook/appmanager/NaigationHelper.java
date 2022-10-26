@@ -15,4 +15,8 @@ public class NaigationHelper {
   public void gotoGroupPage() {
     wd.findElement(By.xpath("//*/text()[normalize-space(.)='']/parent::*")).click();
   }
+
+  public void gotoContactPage() {
+    wd.findElement(By.linkText("home")).click();
+  }
 }
