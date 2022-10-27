@@ -3,20 +3,20 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class NaigationHelper {
-  private WebDriver wd;
+public class NaigationHelper extends HelperBase {
 
 
   public NaigationHelper(WebDriver wd) {
-    this.wd = wd;
+
+    super(wd);
 
   }
 
   public void gotoGroupPage() {
-    wd.findElement(By.xpath("//*/text()[normalize-space(.)='']/parent::*")).click();
+        click(By.xpath("//*/text()[normalize-space(.)='']/parent::*"));
   }
 
   public void gotoContactPage() {
-    wd.findElement(By.linkText("home")).click();
+    click(By.linkText("home"));
   }
 }
