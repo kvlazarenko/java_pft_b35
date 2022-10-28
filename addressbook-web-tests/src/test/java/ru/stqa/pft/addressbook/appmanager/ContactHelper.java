@@ -12,7 +12,6 @@ public class ContactHelper extends HelperBase {
 
   public void returnToHomePage() {
     click(By.linkText("home page"));
-    click(By.linkText("Logout"));
   }
 
   public void submitContactCreation() {
