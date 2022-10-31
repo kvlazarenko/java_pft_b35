@@ -9,7 +9,7 @@ public class ContactModificationTests extends TestBase {
 
   public void testContactModification() {
 
-    app.getNaigationHelper().gotoContactPage();
+    app.getNaigationHelper().gotoHomePage();
     app.getContactHelper().selectContact();
     app.getContactHelper().initContactModification();
     app.getContactHelper().fillContactForm(new ContactData("Ivan", "Ivanov", "+79000000000", "test@tests.com", "null"), false);
