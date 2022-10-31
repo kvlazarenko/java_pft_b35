@@ -30,6 +30,7 @@ public class ContactHelper extends HelperBase {
       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
     } else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
+
     }
   }
 
@@ -57,4 +58,17 @@ public class ContactHelper extends HelperBase {
   public void submitContactModification() {
     click(By.name("update"));
   }
+
+  public boolean IsThereAContact() {
+    return isElementPresent(By.name("entry"));
+  }
+
+  public void createContact(ContactData data, boolean b) {
+    initContactCreation();
+    fillContactForm(data, b);
+    submitContactCreation();
+    returnToHomePage();
+  }
 }
+
+
