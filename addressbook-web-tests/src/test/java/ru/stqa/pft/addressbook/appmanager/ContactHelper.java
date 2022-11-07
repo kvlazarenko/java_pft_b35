@@ -33,13 +33,11 @@ public class ContactHelper extends HelperBase {
     type(By.name("mobile"), contactData.getPhone());
     type(By.name("email"), contactData.getEmail());
 
-
-    if (creation)
-      if (isElementPresent(By.xpath("//option[.='test1']"))) {
-        new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
-      } else {
-        Assert.assertFalse(isElementPresent(By.xpath("//option[.='test1']")));
-      }
+    if (creation) {
+      new Select(wd.findElement(By.name("new_group"))).selectByIndex(0);
+    } else {
+      Assert.assertFalse(isElementPresent(By.name("new_group")));
+    }
   }
 
   public void initContactCreation() {
