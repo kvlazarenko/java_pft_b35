@@ -26,5 +26,4 @@ public class GroupCreationTests extends TestBase {
     after.sort(byId);
     Assert.assertEquals(before,after);
   }
-
 }
