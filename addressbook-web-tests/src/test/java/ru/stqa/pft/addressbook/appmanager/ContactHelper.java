@@ -36,24 +36,30 @@ public class ContactHelper extends HelperBase {
     type(By.name("email"), contactData.getEmail());
 
 
-//    if (creation && isElementPresent(By.linkText(contactData.getGroup()))) {
-//      System.out.println("1");
-//     if (isElementPresent(By.linkText(contactData.getGroup()))) {
-//        System.out.println("2");
-//      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
-//    } else {
-//      System.out.println("3");
-//
-//      Assert.assertFalse(isElementPresent(By.name("new_group")));
     if (creation) {
-      new Select(wd.findElement(By.name("new_group"))).selectByIndex(0);
+      List<WebElement> searchgroup = wd.findElements(By.name("new_group"));
+      Select s = new Select(wd.findElement(By.name("new_group")));
+      for (WebElement element : searchgroup) {
+        List<WebElement> option = element.findElements(By.tagName("option"));
+        for (int i = 0; i < option.size(); i++) {
+          if (option.get(i).getText().equals(contactData.getGroup())) {
+            s.selectByVisibleText((contactData.getGroup()));
+            return;
+          }
+        }
+        s.selectByIndex(0);
+      }
     } else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
   }
-//      Assert.assertFalse(isElementPresent(By.linkText(contactData.getGroup())));
-//  }
+// if(creation)
+//  {
+//    new Select(wd.findElement(By.name("new_group")))
+//            .selectByVisibleText((contactData.getGroup()));
+//  } else
 //    Assert.assertFalse(isElementPresent(By.name("new_group")));
+//  }
 
 
   public void initContactCreation() {
@@ -108,9 +114,3 @@ public class ContactHelper extends HelperBase {
 
   }
 }
-
-
-
-
-
-
