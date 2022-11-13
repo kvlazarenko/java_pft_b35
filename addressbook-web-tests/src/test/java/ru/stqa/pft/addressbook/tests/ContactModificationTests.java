@@ -10,16 +10,15 @@ import java.util.List;
 
 public class ContactModificationTests extends TestBase {
 
-  @Test
+  @Test (enabled = false)
 
   public void testContactModification() {
 
-    app.getNaigationHelper().gotoGroupPage();
-    if (!app.getGroupHelper().IsThereAGroup()) {
-      app.getGroupHelper()
-              .createGroup(new GroupData("test1", null, null));
+    app.goTo().groupPage();
+    if (!app.group().IsThereAGroup()) {
+      app.group().create(new GroupData().whithName("test1"));
     }
-    app.getNaigationHelper().gotoHomePage();
+    app.goTo().gotoHomePage();
     if (!app.getContactHelper().IsThereAContact()) {
       app.getContactHelper()
               .createContact(new ContactData("Petr", "Petrov", "+79000000000",

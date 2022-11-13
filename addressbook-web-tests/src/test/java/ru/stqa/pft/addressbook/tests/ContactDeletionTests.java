@@ -9,14 +9,14 @@ import java.util.List;
 
 public class ContactDeletionTests extends TestBase {
 
-  @Test
+  @Test (enabled = false)
   public void testContactDeletion() throws Exception {
 
-    app.getNaigationHelper().gotoGroupPage();
-    if (!app.getGroupHelper().IsThereAGroup()) {
-      app.getGroupHelper().createGroup(new GroupData("test1", null, null));
+    app.goTo().groupPage();
+    if (!app.group().IsThereAGroup()) {
+      app.group().create(new GroupData().whithName("test1"));
     }
-    app.getNaigationHelper().gotoHomePage();
+    app.goTo().gotoHomePage();
     if (!app.getContactHelper().IsThereAContact()) {
       app.getContactHelper().createContact(new ContactData("Petr", "Petrov", "+79000000000",
               "test@tests.com", "test1"));
