@@ -11,6 +11,12 @@ public class ContactData {
   private String homePhone;
   private String mobilePhone;
   private String workPhone;
+  private String allPhones;
+
+  public String getAllPhones() {
+    return allPhones;
+  }
+
 
   //  public ContactData(String firstname, String lastname, String phone, String email, String group) {
 //
@@ -103,7 +109,10 @@ public class ContactData {
     this.workPhone = workPhone;
     return this;
   }
-
+  public ContactData withAllPhones(String allPhones) {
+    this.allPhones = allPhones;
+    return this;
+  }
 
   @Override
   public String toString() {
