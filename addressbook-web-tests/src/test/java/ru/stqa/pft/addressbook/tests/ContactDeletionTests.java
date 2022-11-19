@@ -20,7 +20,7 @@ public class ContactDeletionTests extends TestBase {
     app.goTo().homePage();
     if (app.contact().all().size() == 0) {
       app.contact().create(new ContactData()
-              .withFirstname("Petr").withLastname("Petrov").withHomePhone("+79000000000").withEmail("test@tests.com").withGroup("test1"));
+              .withFirstname("Petr").withLastname("Petrov").withHomePhone("+79000000000").withEmailAddress("test@tests.com").withGroup("test1"));
     }
     Contacts before = app.contact().all();
     ContactData deletedContact = before.iterator().next();

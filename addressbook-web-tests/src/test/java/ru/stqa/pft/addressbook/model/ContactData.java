@@ -6,16 +6,16 @@ public class ContactData {
   private int id = Integer.MAX_VALUE;
   private String firstname;
   private String lastname;
-  private String email;
+  private String address;
   private String group;
   private String homePhone;
   private String mobilePhone;
   private String workPhone;
   private String allPhones;
-
-  public String getAllPhones() {
-    return allPhones;
-  }
+  private String email;
+  private String email2;
+  private String email3;
+  private String allEmails;
 
 
   //  public ContactData(String firstname, String lastname, String phone, String email, String group) {
@@ -47,10 +47,10 @@ public class ContactData {
     return lastname;
   }
 
-
-  public String getEmail() {
-    return email;
+  public String getAddress() {
+    return address;
   }
+
 
   public String getGroup() {
     return group;
@@ -68,6 +68,25 @@ public class ContactData {
     return workPhone;
   }
 
+  public String getAllPhones() {
+    return allPhones;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public String getEmail2() {
+    return email2;
+  }
+
+  public String getEmail3() {
+    return email3;
+  }
+
+  public String getAllEmails() {
+    return allEmails;
+  }
 
   public ContactData withId(int id) {
     this.id = id;
@@ -84,9 +103,8 @@ public class ContactData {
     return this;
   }
 
-
-  public ContactData withEmail(String email) {
-    this.email = email;
+  public ContactData withAddress(String address) {
+    this.address = address;
     return this;
   }
 
@@ -109,8 +127,30 @@ public class ContactData {
     this.workPhone = workPhone;
     return this;
   }
+
   public ContactData withAllPhones(String allPhones) {
     this.allPhones = allPhones;
+    return this;
+  }
+
+  public ContactData withEmailAddress(String email) {
+    this.email = email;
+    return this;
+  }
+
+  public ContactData withEmail2Address(String email2) {
+    this.email2 = email2;
+    return this;
+  }
+
+
+  public ContactData withEmail3Address(String email3) {
+    this.email3 = email3;
+    return this;
+  }
+
+  public ContactData withAllEmails(String allEmails) {
+    this.allEmails = allEmails;
     return this;
   }
 
