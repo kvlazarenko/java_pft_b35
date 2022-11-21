@@ -35,6 +35,7 @@ public class ContactHelper extends HelperBase {
     type(By.name("email2"), contactData.getEmail2());
     type(By.name("email3"), contactData.getEmail3());
     type(By.name("phone2"), contactData.getHomePhone2());
+    attach(By.name("photo"), contactData.getPhoto());
 
     if (creation) {
       List<WebElement> searchgroup = wd.findElements(By.name("new_group"));
