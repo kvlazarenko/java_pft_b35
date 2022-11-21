@@ -13,7 +13,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactPropertiesTests extends TestBase {
 
-  public void preconditions() {
+  @Test
+
+  public void testContactProperties() {
+
     app.goTo().homePage();
     if (app.contact().all().size() == 0) {
       app.contact().create(new ContactData()
@@ -21,38 +24,11 @@ public class ContactPropertiesTests extends TestBase {
               .withMobilePhone("22-22").withWorkPhone("33 33 33").witHomePhone2("44-44 44").withEmailAddress("test@tests.com")
               .withEmail2Address("test2@tests.com").withEmail3Address("test3@tests.com").withGroup("test1"));
     }
-  }
-
-  @Test
-
-  public void testContactPhones() {
-
-    preconditions();
-    app.goTo().homePage();
     ContactData contact = app.contact().all().iterator().next();
     ContactData contactInfoFormEditForm = app.contact().infoFormEditForm(contact);
+
     assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFormEditForm)));
-  }
-
-  @Test
-  public void testContactEmails() {
-
-    preconditions();
-    app.goTo().homePage();
-    ContactData contact = app.contact().all().iterator().next();
-    ContactData contactInfoFormEditForm = app.contact().infoFormEditForm(contact);
-
     assertThat(contact.getAllEmails(), equalTo(mergeEmails(contactInfoFormEditForm)));
-  }
-
-  @Test
-  public void testContactAddress() {
-    
-    preconditions();
-    app.goTo().homePage();
-    ContactData contact = app.contact().all().iterator().next();
-    ContactData contactInfoFormEditForm = app.contact().infoFormEditForm(contact);
-
     assertThat(contact.getAddress(), equalTo(contactInfoFormEditForm.getAddress()));
   }
 
@@ -71,3 +47,4 @@ public class ContactPropertiesTests extends TestBase {
     return phone.replaceAll("\\s", "").replaceAll("[-()]", "");
   }
 }
+
