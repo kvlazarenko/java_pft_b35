@@ -10,9 +10,15 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.Browser;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.time.Duration;
+import java.util.Properties;
 
 public class ApplicationManager {
+  private final Properties properties;
   WebDriver wd;
 
   private ContactHelper contactHelper;
@@ -24,13 +30,17 @@ public class ApplicationManager {
 
   public ApplicationManager(Browser browser) {
     this.browser = browser;
+    properties = new Properties();
   }
 
 
-  public void init() {
-    System.setProperty("webdriver.gecko.driver","C:\\Windows\\System32\\geckodriver.exe");
+  public void init() throws IOException {
+    String target = System.getProperty("target", "local");
+    properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
+
+    System.setProperty("webdriver.gecko.driver", "C:\\Windows\\System32\\geckodriver.exe");
     if (browser.equals(Browser.FIREFOX)) {
-      wd = new FirefoxDriver(new FirefoxOptions().setBinary("C:/Program Files/Mozilla Firefox/firefox.exe"));
+      wd = new FirefoxDriver(new FirefoxOptions().setBinary("pathFirefox"));
     } else if (browser.equals(Browser.CHROME)) {
       wd = new ChromeDriver();
     } else if (browser.equals(Browser.IE)) {
@@ -42,7 +52,8 @@ public class ApplicationManager {
     naigationHelper = new NaigationHelper(wd);
     sessionHelper = new SessionHelper(wd);
     contactHelper = new ContactHelper(wd);
-    sessionHelper.login("admin", "secret");
+    sessionHelper.login(properties.getProperty("web.adminLogin"),
+            properties.getProperty("web.adminPassword"), properties.getProperty("web.baseUrl"));
   }
 
 
