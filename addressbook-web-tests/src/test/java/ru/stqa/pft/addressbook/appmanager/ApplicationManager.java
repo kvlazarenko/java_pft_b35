@@ -40,7 +40,7 @@ public class ApplicationManager {
 
     System.setProperty("webdriver.gecko.driver", "C:\\Windows\\System32\\geckodriver.exe");
     if (browser.equals(Browser.FIREFOX)) {
-      wd = new FirefoxDriver(new FirefoxOptions().setBinary("pathFirefox"));
+      wd = new FirefoxDriver(new FirefoxOptions().setBinary(properties.getProperty("pathFirefox")));
     } else if (browser.equals(Browser.CHROME)) {
       wd = new ChromeDriver();
     } else if (browser.equals(Browser.IE)) {
@@ -52,8 +52,8 @@ public class ApplicationManager {
     naigationHelper = new NaigationHelper(wd);
     sessionHelper = new SessionHelper(wd);
     contactHelper = new ContactHelper(wd);
-    sessionHelper.login(properties.getProperty("web.adminLogin"),
-            properties.getProperty("web.adminPassword"), properties.getProperty("web.baseUrl"));
+    sessionHelper.login(properties.getProperty("web.adminLogin")
+            ,properties.getProperty("web.adminPassword"), properties.getProperty("web.baseUrl"));
   }
 
 
