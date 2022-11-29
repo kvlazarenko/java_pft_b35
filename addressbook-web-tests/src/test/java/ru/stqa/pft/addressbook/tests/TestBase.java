@@ -10,13 +10,13 @@ import org.testng.annotations.BeforeSuite;
 import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class TestBase {
   Logger logger = LoggerFactory.getLogger(TestBase.class);
   protected static final ApplicationManager app
           = new ApplicationManager(Browser.FIREFOX);
+
 
   @BeforeSuite(alwaysRun = true)
   public void setUp() throws Exception {
