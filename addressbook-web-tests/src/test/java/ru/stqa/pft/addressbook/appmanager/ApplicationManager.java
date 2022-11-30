@@ -11,7 +11,6 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.Browser;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.Duration;
@@ -26,6 +25,7 @@ public class ApplicationManager {
   private NaigationHelper naigationHelper;
   private GroupHelper groupHelper;
   private Browser browser;
+  private DbHelper dbhelper;
 
 
   public ApplicationManager(Browser browser) {
@@ -38,6 +38,7 @@ public class ApplicationManager {
     String target = System.getProperty("target", "local");
     properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
 
+    dbhelper = new DbHelper();
     System.setProperty("webdriver.gecko.driver", "C:\\Windows\\System32\\geckodriver.exe");
     if (browser.equals(Browser.FIREFOX)) {
       wd = new FirefoxDriver(new FirefoxOptions().setBinary(properties.getProperty("pathFirefox")));
@@ -53,7 +54,7 @@ public class ApplicationManager {
     sessionHelper = new SessionHelper(wd);
     contactHelper = new ContactHelper(wd);
     sessionHelper.login(properties.getProperty("web.adminLogin")
-            ,properties.getProperty("web.adminPassword"), properties.getProperty("web.baseUrl"));
+            , properties.getProperty("web.adminPassword"), properties.getProperty("web.baseUrl"));
   }
 
 
@@ -90,6 +91,10 @@ public class ApplicationManager {
 
   public ContactHelper contact() {
     return contactHelper;
+  }
+
+  public DbHelper db() {
+    return dbhelper;
   }
 
 }
