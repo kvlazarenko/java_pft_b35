@@ -13,20 +13,24 @@ public class ContactDeletionTests extends TestBase {
   @Test
   public void testContactDeletion() throws Exception {
 
-    app.goTo().groupPage();
-    if (app.group().all().size() == 0) {
+    if (app.db().groups().size() == 0) {
+      app.goTo().groupPage();
       app.group().create(new GroupData().whithName("test1"));
     }
-    app.goTo().homePage();
-    if (app.contact().all().size() == 0) {
-      app.contact().create(new ContactData()
-              .withFirstname("Petr").withLastname("Petrov").withHomePhone("+79000000000").withEmailAddress("test@tests.com").withGroup("test1"));
+
+    if (app.db().contacts().size()== 0) {
+           app.contact().create(new ContactData().withFirstname("Ivan").withLastname("Ivanov")
+                   .withAddress("London").withEmailAddress("london@london.com")
+                   .withHomePhone("111111").withMobilePhone("222222")
+                   .withWorkPhone("333333").witHomePhone2("444444").withEmail2Address("london2@london.com")
+                   .withEmail3Address("london3@london.com"));
     }
-    Contacts before = app.contact().all();
+    Contacts before = app.db().contacts();
     ContactData deletedContact = before.iterator().next();
+    app.goTo().homePage();
     app.contact().delete(deletedContact);
     assertThat(app.contact().Count(), equalTo(before.size() - 1));
-    Contacts after = app.contact().all();
+    Contacts after = app.db().contacts();
     assertThat(after, equalTo(before.without(deletedContact)));
 
   }

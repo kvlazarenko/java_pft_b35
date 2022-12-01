@@ -4,6 +4,11 @@
     <lastname>Lastname 0</lastname>
     <address>Address 0</address>
     <homePhone>Phone 0</homePhone>
+    <mobilePhone>Mobilephone 0</mobilePhone>
+    <workPhone>Workphone 0</workPhone>
+    <homePhone2>Phone2 0</homePhone2>
     <email>E-mail 0</email>
+    <email2>Email2 0</email2>
+    <email3>Email3 0</email3>
   </contact>
-  </list>
+</list>
