@@ -6,7 +6,9 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @XStreamAlias("contact")
 @Entity
@@ -21,11 +23,9 @@ public class ContactData {
   private String firstname;
   @Column(name = "lastname")
   private String lastname;
-  @Column (name = "address")
+  @Column(name = "address")
   @Type(type = "text")
   private String address;
-  @Transient
-  private String group;
   @Column(name = "home")
   @Type(type = "text")
   private String homePhone;
@@ -54,6 +54,10 @@ public class ContactData {
   @Column(name = "photo")
   @Type(type = "text")
   private String photo;
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinTable(name = "address_in_groups",
+          joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+  private Set<GroupData> groups = new HashSet<GroupData>();
 
 
   public int getId() {
@@ -70,10 +74,6 @@ public class ContactData {
 
   public String getAddress() {
     return address;
-  }
-
-  public String getGroup() {
-    return group;
   }
 
   public String getHomePhone() {
@@ -112,6 +112,10 @@ public class ContactData {
     return allEmails;
   }
 
+  public Groups getGroups() {
+    return new Groups(groups);
+  }
+
   public File getPhoto() {
     if (photo != null) {
       return new File(photo);
@@ -137,11 +141,6 @@ public class ContactData {
 
   public ContactData withAddress(String address) {
     this.address = address;
-    return this;
-  }
-
-  public ContactData withGroup(String group) {
-    this.group = group;
     return this;
   }
 
@@ -217,4 +216,15 @@ public class ContactData {
             '}';
   }
 
+  public ContactData inGroup(GroupData group) {
+    groups.add(group);
+    return this;
+  }
+
+  private Object readResolve() {
+    if(groups == null){
+      groups = new HashSet<GroupData>();
+    }
+    return this;
+  }
 }

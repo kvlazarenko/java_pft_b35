@@ -1,7 +1,6 @@
 package ru.stqa.pft.addressbook.tests;
 
 import org.testng.annotations.Test;
-import ru.stqa.pft.addressbook.appmanager.ContactHelper;
 import ru.stqa.pft.addressbook.model.ContactData;
 
 import java.util.Arrays;
@@ -22,7 +21,7 @@ public class ContactPropertiesTests extends TestBase {
       app.contact().create(new ContactData()
               .withFirstname("Petr").withLastname("Petrov").withAddress("г.Москва ул.Замоскворецкая").withHomePhone("+(790)")
               .withMobilePhone("22-22").withWorkPhone("33 33 33").witHomePhone2("44-44 44").withEmailAddress("test@tests.com")
-              .withEmail2Address("test2@tests.com").withEmail3Address("test3@tests.com").withGroup("test1"));
+              .withEmail2Address("test2@tests.com").withEmail3Address("test3@tests.com"));
     }
     ContactData contact = app.contact().all().iterator().next();
     ContactData contactInfoFormEditForm = app.contact().infoFormEditForm(contact);

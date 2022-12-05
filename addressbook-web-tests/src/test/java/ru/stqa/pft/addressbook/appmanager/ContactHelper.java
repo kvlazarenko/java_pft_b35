@@ -7,8 +7,10 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.List;
+import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -38,18 +40,23 @@ public class ContactHelper extends HelperBase {
     attach(By.name("photo"), contactData.getPhoto());
 
     if (creation) {
-      List<WebElement> searchgroup = wd.findElements(By.name("new_group"));
-      Select s = new Select(wd.findElement(By.name("new_group")));
-      for (WebElement element : searchgroup) {
-        List<WebElement> option = element.findElements(By.tagName("option"));
-        for (int i = 0; i < option.size(); i++) {
-          if (option.get(i).getText().equals(contactData.getGroup())) {
-            s.selectByVisibleText((contactData.getGroup()));
-            return;
-          }
-        }
-        s.selectByIndex(0);
+      if (contactData.getGroups().size() > 0) {
+        Assert.assertTrue(contactData.getGroups().size() == 1);
+        new Select(wd.findElement(By.name("new_group")))
+                .selectByVisibleText(contactData.getGroups().iterator().next().getName());
       }
+//      List<WebElement> searchgroup = wd.findElements(By.name("new_group"));
+//      Select s = new Select(wd.findElement(By.name("new_group")));
+//      for (WebElement element : searchgroup) {
+//        List<WebElement> option = element.findElements(By.tagName("option"));
+//        for (int i = 0; i < option.size(); i++) {
+//          if (option.get(i).getText().equals(contactData.getGroup())) {
+//            s.selectByVisibleText((contactData.getGroup()));
+//            return;
+//          }
+//        }
+//        s.selectByIndex(0);
+//      }
     } else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
@@ -164,4 +171,29 @@ public class ContactHelper extends HelperBase {
   }
 
 
+  public ContactData findContactWithoutGroup(Contacts contacts) {
+    for (ContactData contact : contacts) {
+      Set<GroupData> contactInGroup = contact.getGroups();
+      if (contactInGroup.size() == 0) {
+        return contact;
+      }
+    }
+    return null;
+  }
+
+  public void addContactToGroup(int contactId, int groupId) {
+    homePage();
+    selectContact(contactId);
+    selectGroup(groupId);
+    clickAdd();
+
+  }
+
+  private void clickAdd() {
+    click(By.xpath("(//input[@name='add'])"));
+  }
+
+  private void selectGroup(int Id) {
+    click(By.xpath("(//select[@name='to_group']/option[@value='" + Id + "'])"));
+  }
 }

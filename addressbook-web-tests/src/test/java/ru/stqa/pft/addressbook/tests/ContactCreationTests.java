@@ -5,6 +5,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -41,9 +43,16 @@ public class ContactCreationTests extends TestBase {
 
   public void testContactCreation(ContactData contact) throws Exception {
 
+    if (app.db().groups().size() == 0) {
+      app.goTo().groupPage();
+      app.group().create(new GroupData().whithName("test1"));
+    }
+
+    Groups groups = app.db().groups();
     app.contact().homePage();
     Contacts before = app.db().contacts();
-    app.contact().create(contact);
+
+    app.contact().create(contact.inGroup(groups.iterator().next()));
     assertThat(app.contact().Count(), equalTo(before.size() + 1));
     Contacts after = app.db().contacts();
     assertThat(after, equalTo(
