@@ -181,6 +181,16 @@ public class ContactHelper extends HelperBase {
     return null;
   }
 
+  public ContactData findContactWithGroup(Contacts contacts) {
+    for (ContactData contact : contacts) {
+      Set<GroupData> contactInGroup = contact.getGroups();
+      if (contactInGroup.size() > 0) {
+        return contact;
+      }
+    }
+    return null;
+  }
+
   public void addContactToGroup(int contactId, int groupId) {
     homePage();
     selectContact(contactId);
@@ -195,5 +205,19 @@ public class ContactHelper extends HelperBase {
 
   private void selectGroup(int Id) {
     click(By.xpath("(//select[@name='to_group']/option[@value='" + Id + "'])"));
+  }
+  public void selectAllGroup() {
+    click(By.xpath("(//select[@name='group']/option[text()='[all]'])"));
+  }
+  public void filterByGroup(int groupId) {
+    click(By.xpath("(//select[@name='group']/option[@value='" + groupId + "'])"));
+  }
+  public void removeContactFromGroup(int contactId, int groupId) {
+    filterByGroup(groupId);
+    selectContact(contactId);
+    removeFromGroup();
+  }
+  public void removeFromGroup() {
+    click(By.xpath("(//input[@name='remove'])"));
   }
 }
