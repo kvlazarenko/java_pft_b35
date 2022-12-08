@@ -8,10 +8,13 @@ dependencies {
     testImplementation group: 'org.testng', name: 'testng', version: '7.1.0'
     testImplementation group: 'org.hamcrest', name: 'hamcrest', version: '2.2'
     implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.6.0'
+    implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'
+
 }
 test {
     useTestNG {
-        suites 'src/test/resources/testng-groups.xml'
+
+        suites 'src/test/resources/testng.xml'
     }
     if (project.hasProperty("browser")) {
         systemProperty('browser', "${browser}")
