@@ -44,7 +44,7 @@ public class RemoteContactFromGroupsTests extends TestBase {
     int groupId = group.getId();
     Groups deletedGroup = app.db().getGroupById(groupId);
     GroupData deletedGroupData = deletedGroup.iterator().next();
-    app.contact().filterByGroup(groupId);
+    app.goTo().homePage();
     app.contact().removeContactFromGroup(contactWithGroup.getId(), group.getId());
 
     Contacts contactAfter = app.db().getContactById(contactId);
