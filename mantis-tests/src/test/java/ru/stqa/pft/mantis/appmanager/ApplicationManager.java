@@ -21,6 +21,7 @@ public class ApplicationManager {
   private Browser browser;
   private RegistrationHelper registrationHelper;
   private FtpHelper ftp;
+  private MailHelper mailHelper;
 
   public ApplicationManager(Browser browser) {
     this.browser = browser;
@@ -74,5 +75,11 @@ public class ApplicationManager {
       wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
     return wd;
+  }
+  public MailHelper mail(){
+    if (mailHelper == null){
+      mailHelper = new MailHelper(this);
+    }
+    return mailHelper;
   }
 }
