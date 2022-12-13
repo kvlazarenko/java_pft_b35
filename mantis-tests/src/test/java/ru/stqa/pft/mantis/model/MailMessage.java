@@ -2,7 +2,7 @@ package ru.stqa.pft.mantis.model;
 
 public class MailMessage {
 
-  private  String to;
+  public  String to;
   public String text;
 
   public MailMessage (String to, String text) {
