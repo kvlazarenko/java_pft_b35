@@ -125,6 +125,21 @@ public class JamesHelper {
     }
     throw new Error("No mail :(");
   }
+  public List<MailMessage> waitForMailЬMoreOne(String username, String password, long timeout) throws MessagingException {
+    long now = System.currentTimeMillis();
+    while (System.currentTimeMillis() < now + timeout) {
+      List<MailMessage> allMail = getAllMail(username, password);
+      if (allMail.size() > 1) {
+        return allMail;
+      }
+      try {
+        Thread.sleep(1000);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
+    throw new Error("No mail :(");
+  }
 
   public List<MailMessage> getAllMail(String username, String password) throws MessagingException {
     Folder inbox = openInbox(username, password);
