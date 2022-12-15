@@ -35,13 +35,13 @@ public class ChangeUserPasswordTests extends TestBase {
     String newPassword = "pas14";
     app.registration().finish(confirmationLinkResetPassword, newPassword);
     app.session().login(user, newPassword);
-    assertTrue(app.newSession().login(user, newPassword));
+    assertTrue(app.newSessio
+    private String findConfirmationLink(List<MailMessage> mailMessages, String email) {
+      MailMessage mailMessage = mailMessages.stream().filter((m) -> m.to.equals(email) && m.text.contains("Someone (presumably you) requested a password change through e-mail")).iterator().next();
+      VerbalExpression regex = VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();
+      retn().login(user, newPassword));
   }
-
-  private String findConfirmationLink(List<MailMessage> mailMessages, String email) {
-    MailMessage mailMessage = mailMessages.stream().filter((m) -> m.to.equals(email) && m.text.contains("Someone (presumably you) requested a password change through e-mail")).iterator().next();
-    VerbalExpression regex = VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();
-    return regex.getText(mailMessage.text);
+urn regex.getText(mailMessage.text);
   }
 
   private String findConfirmationLinkCreateUser(List<MailMessage> mailMessages, String email) {
