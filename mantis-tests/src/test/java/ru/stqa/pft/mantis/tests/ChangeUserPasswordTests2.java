@@ -13,32 +13,33 @@ import java.util.List;
 
 import static org.testng.AssertJUnit.assertTrue;
 
-public class ChangeUserPasswordTests extends TestBase {
-@Test
+public class ChangeUserPasswordTests2 extends TestBase {
+  @Test
 
-public void testChangeUserPassword() throws IOException, MessagingException {
+  public void testChangeUserPassword() throws IOException, MessagingException {
 
-    long now = System.currentTimeMillis();
-    String userReg = String.format("user%s", now);
-    String passwordReg = "password";
-    String emailReg = String.format("user%s@localhost", now);
-    app.james().createUser(userReg, passwordReg);
-    app.registration().start(userReg, emailReg);
-    List<MailMessage> mailMessages = app.james().waitForMail(userReg, passwordReg, 120000);
-    String confirmationLink = findConfirmationLinkCreateUser(mailMessages, emailReg);
-    app.registration().finish(confirmationLink, passwordReg);
+//    long now = System.currentTimeMillis();
+//    String userReg = String.format("user%s", now);
+//    String passwordReg = "password";
+//    String emailReg = String.format("user%s@localhost", now);
+//    app.james().createUser(userReg, passwordReg);
+//    app.registration().start(userReg, emailReg);
+//    List<MailMessage> mailMessages = app.james().waitForMail(userReg, passwordReg, 120000);
+//    String confirmationLink = findConfirmationLinkCreateUser(mailMessages, emailReg);
+//    app.registration().finish(confirmationLink, passwordReg);
 
     Users users = app.db().users();
     UserData user = users.stream().filter(usr -> usr.getId() != 1).findFirst().get();
     String username = user.getUsername();
     String email = user.getEmail();
+    String password = "password";
 
     app.session().login(app.getProperty("web.adminLogin"), app.getProperty("web.adminPassword"));
     app.navigationHelper().goToManageUsersPage();
     app.navigationHelper().selectUser(username);
     app.navigationHelper().resetPassword();
 
-    List<MailMessage> mailMessagesResetPassword = app.james().waitForMailMoreOne(userReg, passwordReg, 120000);
+    List<MailMessage> mailMessagesResetPassword = app.james().waitForMailMoreOne(username, password, 120000);
     String confirmationLinkResetPassword = findConfirmationLink(mailMessagesResetPassword, email);
     String newPassword = "pass";
     app.registration().finish(confirmationLinkResetPassword, newPassword);

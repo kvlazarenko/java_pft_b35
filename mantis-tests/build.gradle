@@ -13,6 +13,12 @@ dependencies {
     implementation group: 'commons-net', name: 'commons-net', version: '3.8.0'
     testImplementation group: 'org.subethamail', name: 'subethasmtp', version: '3.1.7'
     implementation group: 'ru.lanwen.verbalregex', name: 'java-verbal-expressions', version: '1.4'
+    implementation group: 'mysql', name: 'mysql-connector-java', version: '5.1.38'
+    implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.6.14.Final'
+    implementation group: 'com.thoughtworks.xstream', name: 'xstream', version: '1.4.19'
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.9.0'
+    implementation group: 'biz.futureware.mantis', name: 'mantis-axis-soap-client', version: '1.2.19'
+
 
 
 }

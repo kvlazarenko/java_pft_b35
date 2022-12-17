@@ -25,6 +25,7 @@ public class ApplicationManager {
   private JamesHelper jamesHelper;
   private NavigationHelper navigationHelper;
   private SessionHelper sessionHelper;
+  private DbHelper dbHelper;
 
   public ApplicationManager(Browser browser) {
     this.browser = browser;
@@ -106,5 +107,10 @@ public class ApplicationManager {
     }
     return sessionHelper;
   }
-
+  public DbHelper db() {
+    if (dbHelper == null) {
+      dbHelper = new DbHelper(this);
+    }
+    return dbHelper;
+  }
 }

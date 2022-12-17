@@ -125,7 +125,7 @@ public class JamesHelper {
     }
     throw new Error("No mail :(");
   }
-  public List<MailMessage> waitForMailЬMoreOne(String username, String password, long timeout) throws MessagingException {
+  public List<MailMessage> waitForMailMoreOne(String username, String password, long timeout) throws MessagingException {
     long now = System.currentTimeMillis();
     while (System.currentTimeMillis() < now + timeout) {
       List<MailMessage> allMail = getAllMail(username, password);
@@ -150,7 +150,8 @@ public class JamesHelper {
 
   private Folder openInbox(String username, String password) throws MessagingException {
     store = mailSession.getStore("pop3");
-    store.connect(mailserver, username, password);
+    store.
+            connect(mailserver, username, password);
     Folder folder = store.getDefaultFolder().getFolder("INBOX");
     folder.open(Folder.READ_WRITE);
     return folder;
