@@ -110,7 +110,7 @@ public class JamesHelper {
     write("quit");
   }
 
-  public List<MailMessage> waitForMail(String username, String password, long timeout) throws MessagingException {
+  public List<MailMessage> waitForMail(String username, String password, long timeout) throws MessagingException, IOException {
     long now = System.currentTimeMillis();
     while (System.currentTimeMillis() < now + timeout) {
       List<MailMessage> allMail = getAllMail(username, password);
@@ -125,7 +125,7 @@ public class JamesHelper {
     }
     throw new Error("No mail :(");
   }
-  public List<MailMessage> waitForMailMoreOne(String username, String password, long timeout) throws MessagingException {
+  public List<MailMessage> waitForMailMoreOne(String username, String password, long timeout) throws MessagingException, IOException {
     long now = System.currentTimeMillis();
     while (System.currentTimeMillis() < now + timeout) {
       List<MailMessage> allMail = getAllMail(username, password);
@@ -141,14 +141,15 @@ public class JamesHelper {
     throw new Error("No mail :(");
   }
 
-  public List<MailMessage> getAllMail(String username, String password) throws MessagingException {
+  public List<MailMessage> getAllMail(String username, String password) throws MessagingException, IOException {
     Folder inbox = openInbox(username, password);
     List<MailMessage> messages = Arrays.asList(inbox.getMessages()).stream().map((m) -> toModelMail(m)).collect(Collectors.toList());
     closeFolder(inbox);
     return messages;
   }
 
-  private Folder openInbox(String username, String password) throws MessagingException {
+  private Folder openInbox(String username, String password) throws MessagingException, IOException {
+    initTelnetSession();
     store = mailSession.getStore("pop3");
     store.
             connect(mailserver, username, password);
@@ -174,7 +175,7 @@ public class JamesHelper {
     store.close();
   }
 
-  public void drainEmail(String username, String password) throws MessagingException {
+  public void drainEmail(String username, String password) throws MessagingException, IOException {
     Folder inbox = openInbox(username, password);
     for (Message message : inbox.getMessages()) {
       message.setFlag(Flags.Flag.DELETED, true);
