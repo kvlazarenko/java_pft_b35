@@ -5,6 +5,7 @@ import ru.stqa.pft.mantis.model.Issue;
 import ru.stqa.pft.mantis.model.Project;
 
 import javax.xml.rpc.ServiceException;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.util.Set;
@@ -30,5 +31,13 @@ public class SoapTests extends TestBase {
             .withDescription("Test issue description").withProject(projects.iterator().next());
     Issue created = app.soap().addIssue(issue);
     assertEquals(issue.getSummary(), created.getSummary());
+  }
+
+  @Test
+  public void testGetIssue() throws IOException, ServiceException, IOException {
+    Issue issue = app.soap().getIssue(0000001);
+    if (isIssueOpen(0000001)) {
+      System.out.println(issue.getStatus().getName());
+    }
   }
 }
