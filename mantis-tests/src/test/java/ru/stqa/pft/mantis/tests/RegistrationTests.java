@@ -1,5 +1,7 @@
 package ru.stqa.pft.mantis.tests;
 
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.lanwen.verbalregex.VerbalExpression;
 import ru.stqa.pft.mantis.model.MailMessage;
@@ -12,7 +14,7 @@ import static org.testng.AssertJUnit.assertTrue;
 
 public class RegistrationTests extends TestBase {
 
-//  @AfterMethod
+  @BeforeMethod
   public void startMailServer() {
     app.mail().start();
   }
@@ -23,15 +25,15 @@ public class RegistrationTests extends TestBase {
     String user = String.format("user%s", now);
     String password = "password";
     String email = String.format("user%s@localhost", now);
-    app.james().createUser(user, password);
-    try {
-      Thread.sleep(5000);
-    } catch (InterruptedException e) {
-      throw new RuntimeException(e);
-    }
+//    app.james().createUser(user, password);
+//    try {
+//      Thread.sleep(5000);
+//    } catch (InterruptedException e) {
+//      throw new RuntimeException(e);
+//    }
     app.registration().start(user, email);
-//    List<MailMessage> mailMessages = app.mail().waitForMail(2, 120000);
-    List<MailMessage> mailMessages = app.james().waitForMail(user, password, 120000);
+    List<MailMessage> mailMessages = app.mail().waitForMail(2, 120000);
+//    List<MailMessage> mailMessages = app.james().waitForMail(user, password, 120000);
     String confirmationLink = findConfirmationLink(mailMessages, email);
     app.registration().finish(confirmationLink, password);
     assertTrue(app.newSession().login(user, password));
@@ -44,7 +46,7 @@ public class RegistrationTests extends TestBase {
     return regex.getText(mailMessage.text);
   }
 
-//  @BeforeMethod(alwaysRun = true)
+  @AfterMethod(alwaysRun = true)
   public void stopMailServer() {
     app.mail().stop();
   }
