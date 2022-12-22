@@ -21,7 +21,7 @@ import static org.hamcrest.Matchers.equalTo;
 public class TestBase {
   Logger logger = LoggerFactory.getLogger(TestBase.class);
   protected static final ApplicationManager app
-          = new ApplicationManager(Browser.FIREFOX);
+          = new ApplicationManager(Browser.CHROME);
 
 
   @BeforeSuite(alwaysRun = true)
