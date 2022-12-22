@@ -51,8 +51,9 @@ public class ApplicationManager {
         wd = new InternetExplorerDriver();
       }
     } else {
+      String remoteBrowser = "CHROME";
       DesiredCapabilities capabilities = new DesiredCapabilities();
-      capabilities.setBrowserName(String.valueOf(browser));
+      capabilities.setBrowserName(remoteBrowser));
       wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities);
     }
       wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
