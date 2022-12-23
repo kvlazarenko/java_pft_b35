@@ -49,7 +49,7 @@ public class ApplicationManager {
       }
     } else {
       DesiredCapabilities capabilities = new DesiredCapabilities();
-      capabilities.setBrowserName("chrome");
+      capabilities.setBrowserName(browser.browserName());
       wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities);
     }
       wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
