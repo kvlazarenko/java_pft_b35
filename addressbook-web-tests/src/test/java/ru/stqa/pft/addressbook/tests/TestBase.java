@@ -20,8 +20,8 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class TestBase {
   Logger logger = LoggerFactory.getLogger(TestBase.class);
-//  protected static final ApplicationManager app = new ApplicationManager(Browser.CHROME);
-  protected static final ApplicationManager app = new ApplicationManager(System.getProperty("browser", Browser.CHROME.browserName()));
+  protected static final ApplicationManager app
+        = new ApplicationManager(System.getProperty("browser", Browser.FIREFOX.browserName()));
 
 
   @BeforeSuite(alwaysRun = true)
