@@ -28,13 +28,10 @@ public class ApplicationManager {
 
   private DbHelper dbhelper;
 
-
   public ApplicationManager(Browser browser) {
     this.browser = browser;
     properties = new Properties();
   }
-
-
   public void init() throws IOException {
     String target = System.getProperty("target", "local");
     properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
@@ -51,9 +48,8 @@ public class ApplicationManager {
         wd = new InternetExplorerDriver();
       }
     } else {
-      String remoteBrowser = "CHROME";
       DesiredCapabilities capabilities = new DesiredCapabilities();
-      capabilities.setBrowserName(remoteBrowser));
+      capabilities.setBrowserName("chrome");
       wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities);
     }
       wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
