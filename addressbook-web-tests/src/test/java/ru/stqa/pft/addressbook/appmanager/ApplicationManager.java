@@ -24,11 +24,11 @@ public class ApplicationManager {
   private SessionHelper sessionHelper;
   private NaigationHelper naigationHelper;
   private GroupHelper groupHelper;
-  private Browser browser;
+  private String browser;
 
   private DbHelper dbhelper;
 
-  public ApplicationManager(Browser browser) {
+  public ApplicationManager(String browser) {
     this.browser = browser;
     properties = new Properties();
   }
@@ -40,16 +40,16 @@ public class ApplicationManager {
     System.setProperty("webdriver.gecko.driver", "C:\\Windows\\System32\\geckodriver.exe");
 
     if ("".equals(properties.getProperty("selenium.server"))) {
-      if (browser.equals(Browser.FIREFOX)) {
+      if (browser.equals(Browser.FIREFOX.browserName())) {
         wd = new FirefoxDriver(new FirefoxOptions().setBinary(properties.getProperty("pathFirefox")));
-      } else if (browser.equals(Browser.CHROME)) {
+      } else if (browser.equals(Browser.CHROME.browserName())) {
         wd = new ChromeDriver();
-      } else if (browser.equals(Browser.IE)) {
+      } else if (browser.equals(Browser.IE.browserName())) {
         wd = new InternetExplorerDriver();
       }
     } else {
       DesiredCapabilities capabilities = new DesiredCapabilities();
-      capabilities.setBrowserName(browser.browserName());
+      capabilities.setBrowserName(browser);
       wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities);
     }
       wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
